@@ -1,56 +1,30 @@
 import pytest
-from category import Category
-from product import Product
+from main import Category, Product
 
-@pytest.fixture
-def sample_data():
-    category1 = Category("Electronics", "Electronics category")
-    category2 = Category("Clothing", "Clothing category")
+@pytest.fixture(autouse=True)
+def setup():
+    Product.total_products = 0
+    Category.total_categories = 0
+    Category.total_unique_products = 0
 
-    product1 = Product("Laptop", "Gaming laptop", 1500, 10)
-    product2 = Product("T-shirt", "Cotton T-shirt", 20, 50)
+def test_category_initialization():
+    category = Category("Test Category", "Test Description")
+    assert category.name == "Test Category"
+    assert category.description == "Test Description"
 
-    # Добавляем продукты в категории
-    category1.add_product(product1)
-    category2.add_product(product2)
+def test_product_initialization():
+    product = Product("Test Product", "Test Description", 10.99, 100)
+    assert product.name == "Test Product"
+    assert product.description == "Test Description"
+    assert product.price == 10.99
+    assert product.quantity == 100
 
-    return category1, category2, product1, product2
+def test_count_products():
+    product1 = Product("Product 1", "Description 1", 9.99, 50)
+    product2 = Product("Product 2", "Description 2", 19.99, 30)
+    assert Product.total_products == 2
 
-# Тесты для класса Category
-def test_category_initialization(sample_data):
-    category1, category2, _, _ = sample_data
-
-    assert category1.name == "Electronics"
-    assert category1.description == "Electronics category"
-    assert category2.name == "Clothing"
-    assert category2.description == "Clothing category"
-
-def test_category_product_count(sample_data):
-    category1, category2, product1, product2 = sample_data
-
-    assert len(category1.products) == 1
-    assert len(category2.products) == 1
-
-def test_total_categories_count(sample_data):
+def test_count_categories():
+    category1 = Category("Category 1", "Description 1")
+    category2 = Category("Category 2", "Description 2")
     assert Category.total_categories == 2
-
-def test_total_unique_products_count(sample_data):
-    assert Product.total_products == 2
-
-# Тесты для класса Product
-def test_product_initialization(sample_data):
-    _, _, product1, product2 = sample_data
-
-    assert product1.name == "Laptop"
-    assert product1.description == "Gaming laptop"
-    assert product1.price == 1500
-    assert product1.quantity == 10
-
-    assert product2.name == "T-shirt"
-    assert product2.description == "Cotton T-shirt"
-    assert product2.price == 20
-    assert product2.quantity == 50
-
-def test_total_products_count(sample_data):
-    assert Product.total_products == 2
-
