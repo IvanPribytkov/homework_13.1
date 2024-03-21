@@ -26,14 +26,3 @@ class Product:
         else:
             self._price = value
 
-
-product = Product("Phone", "Smartphone", 500, 10)
-print(product.price)  # Выведет: 500
-
-# Установка новой корректной цены
-product.price = 600
-print(product.price)  # Выведет: 600
-
-# Попытка установить некорректную цену
-product.price = -100  # Выведет сообщение об ошибке
-print(product.price)  # Выведет: 600 (цена останется прежней)
