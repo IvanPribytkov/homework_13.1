@@ -17,8 +17,6 @@ class Category:
         self.products = products
         # Увеличиваем общее количество категорий при создании новой категории
         Category.total_categories += 1
-        # Увеличиваем общее количество уникальных продуктов при создании новой категории
-        Product.total_products += len(products)
 
     def add_product(self, product: Product):
         """

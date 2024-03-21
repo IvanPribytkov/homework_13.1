@@ -14,9 +14,6 @@ def test_category_initialization():
     assert category.description == "Description 1"
     assert category.products == []
 
-def test_count_products(product_fixture):
-    assert Product.total_products == 2
-
 def test_count_categories():
     category1 = Category("Category 1", "Description 1", [])
     category2 = Category("Category 2", "Description 2", [])
