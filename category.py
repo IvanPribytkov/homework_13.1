@@ -25,3 +25,11 @@ class Category:
         """
         self._products.append(product)
         Category.total_unique_products += 1  # Увеличиваем общее количество уникальных продуктов при добавлении нового продукта в категорию
+
+    @property
+    def products(self):
+        """
+        Геттер для атрибута products, возвращающий список товаров в формате:
+        Продукт, 80 руб. Остаток: 15 шт.
+        """
+        return '\n'.join([f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.' for product in self._products])
