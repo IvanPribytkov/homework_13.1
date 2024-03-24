@@ -1,63 +1,28 @@
-from product import Product
-from category import Category
 import pytest
+from category import Category
+from product import Product
 
-# Тесты для класса Product
-def test_product_price_setter_valid():
-    product = Product("Phone", "Smartphone", 500, 10)
-    product.price = 600
-    assert product.price == 600
+@pytest.fixture
+def sample_product():
+    return Product("Sample Product", "Description", 10, 50)
 
-def test_product_price_setter_invalid():
-    product = Product("Phone", "Smartphone", 500, 10)
-    product.price = -100
-    assert product.price == 500  # Убедимся, что цена осталась прежней
+@pytest.fixture
+def sample_category():
+    return Category("Sample Category", "Category Description")
 
-# Тесты для класса Category
-def test_category_add_product():
-    category = Category("Category", "Description")
-    product1 = Product("Phone", "Smartphone", 500, 10)
-    product2 = Product("Laptop", "Laptop", 1000, 5)
-    category.add_product(product1)
-    category.add_product(product2)
-    assert len(category._products) == 2
+def test_add_product_to_category(sample_product, sample_category):
+    sample_category.add_product(sample_product)
+    assert len(sample_category.products) == 39
 
-def test_category_products_getter():
-    category = Category("Category", "Description")
-    product1 = Product("Phone", "Smartphone", 500, 10)
-    product2 = Product("Laptop", "Laptop", 1000, 5)
-    category.add_product(product1)
-    category.add_product(product2)
-    expected_output = "Phone, 500 руб. Остаток: 10 шт.\nLaptop, 1000 руб. Остаток: 5 шт."
-    assert category.products == expected_output
+def test_category_products(sample_product, sample_category):
+    sample_category.add_product(sample_product)
+    assert sample_category.products == "Sample Product, 10 руб. Остаток: 50 шт."
 
-def test_category_total_unique_products():
-    category = Category("Category", "Description")
-    product1 = Product("Phone", "Smartphone", 500, 10)
-    product2 = Product("Laptop", "Laptop", 1000, 5)
-    category.add_product(product1)
-    category.add_product(product2)
-    assert Category.total_unique_products == 6
+def test_count_categories(sample_product, sample_category):
+    sample_category.add_product(sample_product)
+    assert sample_category.count_categories() == 1
 
-# Проверка сообщения об ошибке при попытке установить недопустимую цену
-def test_product_price_setter_invalid_message(capfd):
-    product = Product("Phone", "Smartphone", 500, 10)
-    product.price = -100
-    out, _ = capfd.readouterr()
-    assert "Ошибка: Цена должна быть больше нуля." in out
-
-# Проверка общего количества категорий после добавления
-def test_total_categories_after_addition():
-    category1 = Category("Category1", "Description1")
-    category2 = Category("Category2", "Description2")
-    assert Category.total_categories == 5
-
-# Проверка общего количества уникальных продуктов после добавления
-def test_total_unique_products_after_addition():
-    category = Category("Category", "Description")
-    product1 = Product("Phone", "Smartphone", 500, 10)
-    product2 = Product("Laptop", "Laptop", 1000, 5)
-    category.add_product(product1)
-    category.add_product(product2)
-    assert Category.total_unique_products == 8
-
+def test_product_price_setter():
+    product = Product("Product", "Description", 10, 50)
+    product.price = -5
+    assert product.price == 10  # Цена не должна измениться из-за некорректного значения

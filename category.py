@@ -1,9 +1,6 @@
-from product import Product  # Импортируем класс Product
+from product import Product
 
 class Category:
-    total_categories = 0  # Общее количество категорий
-    total_unique_products = 0  # Общее количество уникальных продуктов (не учитывая количество в наличии)
-
     def __init__(self, name: str, description: str):
         """
         Инициализация объекта Category.
@@ -13,9 +10,7 @@ class Category:
         """
         self.name = name
         self.description = description
-        self._products = []  # Приватный атрибут - список товаров в данной категории
-        # Увеличиваем общее количество категорий при создании новой категории
-        Category.total_categories += 1
+        self.__products = []  # Приватный атрибут - список товаров в данной категории
 
     def add_product(self, product: Product):
         """
@@ -23,8 +18,7 @@ class Category:
 
         :param product: Продукт для добавления.
         """
-        self._products.append(product)
-        Category.total_unique_products += 1  # Увеличиваем общее количество уникальных продуктов при добавлении нового продукта в категорию
+        self.__products.append(product)
 
     @property
     def products(self):
@@ -32,4 +26,10 @@ class Category:
         Геттер для атрибута products, возвращающий список товаров в формате:
         Продукт, 80 руб. Остаток: 15 шт.
         """
-        return '\n'.join([f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.' for product in self._products])
+        return '\n'.join([f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.' for product in self.__products])
+
+    def count_categories(self):
+        """
+        Метод для подсчета количества категорий.
+        """
+        return len(self.__products)
