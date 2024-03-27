@@ -26,3 +26,12 @@ class Product:
         else:
             self._price = value
 
+    def __str__(self):
+        """Строковое представление объекта Product."""
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        """Сложение объектов Product."""
+        total_price = (self.price * self.quantity) + (other.price * other.quantity)
+        total_quantity = self.quantity + other.quantity
+        return Product("Combined Product", "Combined Description", total_price / total_quantity, total_quantity)

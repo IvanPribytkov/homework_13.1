@@ -26,10 +26,15 @@ class Category:
         Геттер для атрибута products, возвращающий список товаров в формате:
         Продукт, 80 руб. Остаток: 15 шт.
         """
-        return '\n'.join([f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.' for product in self.__products])
+        return '\n'.join(map(str, self.__products))
 
     def count_categories(self):
         """
         Метод для подсчета количества категорий.
         """
         return len(self.__products)
+
+    def __str__(self):
+        """Строковое представление объекта Category."""
+        total_quantity = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
