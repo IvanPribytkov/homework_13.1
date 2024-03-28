@@ -32,6 +32,10 @@ class Product:
 
     def __add__(self, other):
         """Сложение объектов Product."""
+        if not isinstance(other, Product):
+            raise TypeError("Можно складывать только объекты типа Product.")
+
         total_price = (self.price * self.quantity) + (other.price * other.quantity)
         total_quantity = self.quantity + other.quantity
         return Product("Combined Product", "Combined Description", total_price / total_quantity, total_quantity)
+
