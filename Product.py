@@ -10,7 +10,7 @@ class Product:
         """
         self.name = name
         self.description = description
-        self._price = price  # Приватный атрибут для цены
+        self._price = price
         self.quantity = quantity
 
     @property
@@ -32,10 +32,9 @@ class Product:
 
     def __add__(self, other):
         """Сложение объектов Product."""
-        if not isinstance(other, Product):
-            raise TypeError("Можно складывать только объекты типа Product.")
+        if type(other) != type(self):
+            raise TypeError("Можно складывать только товары одной категории.")
 
         total_price = (self.price * self.quantity) + (other.price * other.quantity)
         total_quantity = self.quantity + other.quantity
         return Product("Combined Product", "Combined Description", total_price / total_quantity, total_quantity)
-

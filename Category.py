@@ -1,4 +1,5 @@
-from product import Product
+from Product import Product
+
 
 class Category:
     def __init__(self, name: str, description: str):
@@ -10,14 +11,21 @@ class Category:
         """
         self.name = name
         self.description = description
-        self.__products = []  # Приватный атрибут - список товаров в данной категории
+        self.__products = []
 
-    def add_product(self, product: Product):
+    def add_product(self, product):
         """
         Добавление продукта в категорию.
 
         :param product: Продукт для добавления.
         """
+        if not isinstance(product, Product):
+            raise TypeError("Можно добавлять только объекты типа Product.")
+
+        # Проверяем, что список __products не пустой и тип первого элемента совпадает с типом нового продукта
+        if self.__products and not isinstance(product, type(self.__products[0])):
+            raise TypeError("Можно добавлять только товары одной категории.")
+
         self.__products.append(product)
 
     @property
