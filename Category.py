@@ -1,6 +1,5 @@
 from Product import Product
 
-
 class Category:
     def __init__(self, name: str, description: str):
         """

@@ -1,4 +1,6 @@
-class Product:
+from abc import ABC, abstractmethod
+
+class Product(ABC):
     def __init__(self, name: str, description: str, price: float, quantity: int):
         """
         Инициализация объекта Product.
@@ -30,11 +32,6 @@ class Product:
         """Строковое представление объекта Product."""
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
-    def __add__(self, other):
-        """Сложение объектов Product."""
-        if type(other) != type(self):
-            raise TypeError("Можно складывать только товары одной категории.")
-
-        total_price = (self.price * self.quantity) + (other.price * other.quantity)
-        total_quantity = self.quantity + other.quantity
-        return Product("Combined Product", "Combined Description", total_price / total_quantity, total_quantity)
+    @abstractmethod
+    def __repr__(self):
+        pass

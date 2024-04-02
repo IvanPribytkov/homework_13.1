@@ -7,3 +7,6 @@ class Smartphone(Product):
         self.model = model
         self.storage_capacity = storage_capacity
         self.color = color
+
+    def __repr__(self):
+        return f"Smartphone('{self.name}', '{self.description}', {self.price}, {self.quantity}, '{self.performance}', '{self.model}', {self.storage_capacity}, '{self.color}')"
