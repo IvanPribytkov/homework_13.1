@@ -1,6 +1,7 @@
+from logmixin import LogMixin
 from product import Product
 
-class Category:
+class Category(LogMixin):
     def __init__(self, name: str, description: str):
         """
         Инициализация объекта Category.

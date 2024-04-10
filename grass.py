@@ -8,4 +8,4 @@ class Grass(Product):
         self.color = color
 
     def __repr__(self):
-        return f"Grass('{self.name}', '{self.description}', {self.price}, {self.quantity}, '{self.country_of_origin}', '{self.germination_period}', '{self.color}')"
+        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity}, {self.country_of_origin}, {self.germination_period}, {self.color})"

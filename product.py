@@ -1,19 +1,9 @@
-from abc import ABC, abstractmethod
+from abstractproduct import AbstractProduct
+from logmixin import LogMixin
 
-class Product(ABC):
+class Product(AbstractProduct, LogMixin):
     def __init__(self, name: str, description: str, price: float, quantity: int):
-        """
-        Инициализация объекта Product.
-
-        :param name: Название товара.
-        :param description: Описание товара.
-        :param price: Цена товара.
-        :param quantity: Количество товара в наличии.
-        """
-        self.name = name
-        self.description = description
-        self._price = price
-        self.quantity = quantity
+        super().__init__(name, description, price, quantity)
 
     @property
     def price(self):
@@ -28,10 +18,6 @@ class Product(ABC):
         else:
             self._price = value
 
-    def __str__(self):
-        """Строковое представление объекта Product."""
-        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
-
-    @abstractmethod
     def __repr__(self):
-        pass
+        """Строковое представление объекта Product."""
+        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
