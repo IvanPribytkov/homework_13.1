@@ -1,8 +1,8 @@
 import pytest
 from unittest.mock import MagicMock
 
-from Category import Category
-from Product import Product
+from category import Category
+from product import Product
 
 @pytest.fixture
 def sample_product():

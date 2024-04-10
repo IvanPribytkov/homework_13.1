@@ -1,4 +1,4 @@
-from Product import Product
+from product import Product
 
 class Grass(Product):
     def __init__(self, name: str, description: str, price: float, quantity: int, country_of_origin: str, germination_period: str, color: str):

@@ -1,5 +1,5 @@
 import pytest
-from Smartphone import Smartphone
+from smartphone import Smartphone
 
 @pytest.fixture
 def sample_smartphone():

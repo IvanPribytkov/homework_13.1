@@ -1,4 +1,4 @@
-from Product import Product
+from product import Product
 
 class Smartphone(Product):
     def __init__(self, name: str, description: str, price: float, quantity: int, performance: str, model: str, storage_capacity: int, color: str):

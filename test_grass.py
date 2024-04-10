@@ -1,5 +1,5 @@
 import pytest
-from Grass import Grass
+from grass import Grass
 
 @pytest.fixture
 def sample_grass():
