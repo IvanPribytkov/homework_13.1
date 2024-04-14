@@ -14,7 +14,7 @@ class Product(AbstractProduct, LogMixin):
     def price(self, value):
         """Сеттер для цены."""
         if value <= 0:
-            print("Ошибка: Цена должна быть больше нуля.")
+            raise ValueError("Ошибка: Цена должна быть больше нуля.")
         else:
             self._price = value
 

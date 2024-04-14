@@ -3,26 +3,17 @@ from product import Product
 
 class Category(LogMixin):
     def __init__(self, name: str, description: str):
-        """
-        Инициализация объекта Category.
-
-        :param name: Название категории.
-        :param description: Описание категории.
-        """
         self.name = name
         self.description = description
         self.__products = []
 
     def add_product(self, product):
-        """
-        Добавление продукта в категорию.
-
-        :param product: Продукт для добавления.
-        """
         if not isinstance(product, Product):
             raise TypeError("Можно добавлять только объекты типа Product.")
 
-        # Проверяем, что список __products не пустой и тип первого элемента совпадает с типом нового продукта
+        if product.quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен.")
+
         if self.__products and not isinstance(product, type(self.__products[0])):
             raise TypeError("Можно добавлять только товары одной категории.")
 
@@ -30,19 +21,23 @@ class Category(LogMixin):
 
     @property
     def products(self):
-        """
-        Геттер для атрибута products, возвращающий список товаров в формате:
-        Продукт, 80 руб. Остаток: 15 шт.
-        """
         return '\n'.join(map(str, self.__products))
 
     def count_categories(self):
-        """
-        Метод для подсчета количества категорий.
-        """
         return len(self.__products)
 
+    def average_price(self):
+        total_price = sum(product.price for product in self.__products)
+        total_count = len(self.__products)
+
+        try:
+            average_price = total_price / total_count
+        except ZeroDivisionError:
+            print("В категории нет товаров.")
+            return 0
+
+        return average_price
+
     def __str__(self):
-        """Строковое представление объекта Category."""
         total_quantity = sum(product.quantity for product in self.__products)
         return f"{self.name}, количество продуктов: {total_quantity} шт."
